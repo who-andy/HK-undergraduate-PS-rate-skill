@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_on": "2026-11-02",
+  "intake": "2027",
+  "scope": "Hong Kong undergraduate applications using international/non-HKDSE qualifications such as GCE/International A-Level; route distinctions are explicit.",
+  "rules": [
+    {
+      "id": "hku", "university": "The University of Hong Kong", "route": "international qualifications",
+      "ps_status": "required", "limit": {"value": 1000, "unit": "words"}, "shared_choices": "one_statement_for_all_choices",
+      "purpose": "Explain interest in the university and selected programme(s).",
+      "exceptions": ["HKU-UCL Dual Degree Programme in Law requires a separate personal statement."],
+      "unknowns": ["No publicly confirmed university-wide numerical PS marking rubric or admissions weight."],
+      "sources": [{"title": "HKU International Admissions FAQ", "url": "https://www.admissions.hku.hk/faqs/international", "kind": "official_faq"}]
+    },
+    {
+      "id": "cuhk", "university": "The Chinese University of Hong Kong", "route": "overseas/other qualifications, non-local international team",
+      "ps_status": "required", "limit": {"value": 6000, "unit": "characters"}, "shared_choices": "one_statement_for_all_choices",
+      "purpose": "Explain why the applicant chose the programme(s) in the application.",
+      "exceptions": ["Medicine applicants must also submit a separate 250-word personal statement; verify its programme-specific instructions."],
+      "unknowns": ["No publicly confirmed university-wide numerical PS marking rubric or admissions weight."],
+      "sources": [{"title": "CUHK Overseas/Other Qualifications FAQ, question 38", "url": "https://admission.cuhk.edu.hk/application/overseas-other-qualifications-non-local-international-team/faq/", "kind": "official_faq"}]
+    },
+    {
+      "id": "hkust", "university": "The Hong Kong University of Science and Technology", "route": "international qualifications",
+      "ps_status": "required", "limit": null, "shared_choices": "unconfirmed",
+      "purpose": "Personal statement is listed among documents required for the international qualifications application.",
+      "exceptions": ["Research the exact programme, school-based vs programme-based choice, and applicant portal instructions."],
+      "unknowns": ["No university-wide PS length limit verified from the cited admissions page.", "No confirmed shared-statement rule from the cited page.", "No published numerical PS marking weight verified."],
+      "sources": [{"title": "HKUST International Qualifications Application Procedures", "url": "https://join.hkust.edu.hk/admissions/international-qualifications/application-procedures", "kind": "official_admissions"}]
+    },
+    {
+      "id": "cityuhk", "university": "City University of Hong Kong", "route": "direct/non-JUPAS; check local/non-local subroute",
+      "ps_status": "required_as_applicant_statement", "limit": null, "shared_choices": "per_programme_statement_in_faq",
+      "purpose": "Applicant Statement may explain interest in CityUHK, career aspirations, experience, achievements, community service and other relevant information.",
+      "exceptions": ["The official FAQ says an Applicant Statement is required for each programme; local Non-JUPAS instructions also list a personal statement in application materials.", "Do not apply CityUHK mainland Gaokao user-guide limits to international A-Level applicants.", "School of Creative Media and other programmes may require additional materials; verify case by case."],
+      "unknowns": ["The reviewed FAQ does not establish a universal A-Level Applicant Statement character or word limit.", "Exact form and per-choice fields should be confirmed in the applicant portal.", "No published numerical PS marking weight verified."],
+      "sources": [
+        {"title": "CityUHK Admission FAQ, Non-local Applicants and Local Non-JUPAS", "url": "https://www.cityu.edu.hk/admo/faq", "kind": "official_faq"},
+        {"title": "CityUHK Non-JUPAS Year 1 Admission", "url": "https://www.cityu.edu.hk/admo/admissions/non-jupas-year-1-admission", "kind": "official_admissions"}
+      ]
+    },
+    {
+      "id": "polyu", "university": "The Hong Kong Polytechnic University", "route": "international/other qualifications",
+      "ps_status": "optional_for_most_programmes", "limit": null, "shared_choices": "unconfirmed",
+      "purpose": "If submitted, demonstrate suitability for the chosen programme(s); no specific format in general FAQ.",
+      "exceptions": ["Some programmes request additional documents; verify programme-specific instructions.", "Upload optional PS under Additional Document according to the official FAQ."],
+      "unknowns": ["PS requirements for the exact target programme must be checked.", "No university-wide PS length limit verified from the cited page.", "No published numerical PS marking weight verified."],
+      "sources": [{"title": "PolyU International / Other Qualifications FAQ, Documents", "url": "https://www.polyu.edu.hk/study/ug/admissions/international-other-qualifications/international-other-qualifications-frequently", "kind": "official_faq"}]
+    }
+  ]
+}
