@@ -1,6 +1,10 @@
-# PS Evaluator Skill v0.2.0
+# PS Evaluator Skill v0.3.0
 
-本科个人陈述评估 Skill，采用**动态专业研究**模式，适用于港五及其他大学。Skill 内不预置 HKU、HKUST 等特定 Major 的固定画像，也不会杜撰各校内部 PS 评分权重。
+本科个人陈述评估 Skill，采用**动态专业研究**模式，适用于港五及其他大学。Skill 内不预置特定 Major 的固定评分画像，但内置港五 2027 国际学历本科的 PS 提交要求基线，也不会杜撰各校内部 PS 评分权重。
+
+## 港五 PS 要求基线
+
+`requirements/hk-five-2027.json` 与 `references/hk-five-requirements.md` 记录港大、港中文、港科大、城大和理大官方英文资料来源。港大一般共用一篇且最多 1000 词；港中文共用一篇且最多 6000 字符，医学有额外要求；港科大列明需 PS 但尚未核实统一长度上限；城大 FAQ 提到按专业填写 Applicant Statement；理大多数专业可选提交。具体 Major、申请途径和年份仍要动态核实，学校内部 PS 评分权重未知。
 
 ## 工作流程
 
@@ -13,10 +17,10 @@
 ## 安装
 
 ```bash
-npx skills add who-andy/AIOS-in-Project-Memory --skill ps-evaluator
+npx skills add who-andy/HK-undergraduate-PS-rate-skill --skill ps-evaluator
 ```
 
-也可以将 `skills/ps-evaluator/` 放到 Claude Code 的 `~/.claude/skills/ps-evaluator/` 或 Codex 的 `~/.agents/skills/ps-evaluator/`。Skill 不依赖 AIOS，不需要默认购买模型 API。
+也可以将 仓库根目录 放到 Claude Code 的 `~/.claude/skills/ps-evaluator/` 或 Codex 的 `~/.agents/skills/ps-evaluator/`。Skill 不依赖 AIOS，不需要默认购买模型 API。
 
 ## 调用例子
 
