@@ -1,12 +1,16 @@
-# PS Evaluator Skill v0.2.0
+# PS Evaluator Skill v0.3.0
 
 [简体中文](README.zh-CN.md)
 
-A portable, **research-first** Agent Skill for undergraduate personal statements. It supports Hong Kong universities and other institutions with one shared scoring workflow. **No university or major is hardcoded.** The agent researches the specific programme's current official requirements and curriculum, and then assesses the essay against that evidence.
+A portable, **research-first** Agent Skill for undergraduate personal statements. It supports Hong Kong universities and other institutions with one shared scoring workflow. **No fixed major profiles or university-specific scoring weights are hardcoded.** For the Hong Kong five universities, a dated 2027 undergraduate PS submission-rule baseline is included; major fit is still researched dynamically. The agent researches the specific programme's current official requirements and curriculum, and then assesses the essay against that evidence.
 
 ## Why dynamic research?
 
 Universities and routes vary in whether a statement is required, its length, whether multiple programme choices share one essay, and which additional materials are needed. Public curriculum details do not disclose secret internal PS scoring weights. This Skill explicitly distinguishes official facts from inferred programme fit signals.
+
+## Hong Kong five: 2027 application-rule baseline
+
+See [`requirements/hk-five-2027.json`](requirements/hk-five-2027.json) and [source-linked notes](references/hk-five-requirements.md). For the specified international/non-HKDSE route, HKU has a **1,000-word** shared statement, CUHK a **6,000-character** shared statement with a Medicine exception, HKUST lists a PS but no general limit was verified, CityUHK's official FAQ describes **per-programme Applicant Statements** without a verified universal A-Level length limit, and PolyU says statements are optional for **most** programmes. Always recheck the specific programme, route, intake and applicant portal.
 
 ## Workflow
 
@@ -23,10 +27,10 @@ If official programme context cannot be verified, report a universal-only evalua
 From this repository, install the independent `ps-evaluator` Skill with a compatible Skills CLI:
 
 ```bash
-npx skills add who-andy/AIOS-in-Project-Memory --skill ps-evaluator
+npx skills add who-andy/HK-undergraduate-PS-rate-skill --skill ps-evaluator
 ```
 
-Or copy `skills/ps-evaluator/` into a compatible agent's skills directory, such as `~/.agents/skills/ps-evaluator/` (Codex) or `~/.claude/skills/ps-evaluator/` (Claude Code). It does not require AIOS or an API key.
+Or copy the repository root into a compatible agent's skills directory, such as `~/.agents/skills/ps-evaluator/` (Codex) or `~/.claude/skills/ps-evaluator/` (Claude Code). It does not require AIOS or an API key.
 
 ## Example
 
@@ -35,7 +39,6 @@ Or copy `skills/ps-evaluator/` into a compatible agent's skills directory, such 
 ## Deterministic tests
 
 ```bash
-cd skills/ps-evaluator
 python3 scripts/validate_profiles.py --root .
 python3 -m unittest discover -s tests -v
 python3 scripts/aggregate_scores.py --rubrics . --input examples/evaluations.synthetic.json
