@@ -124,7 +124,9 @@ def validate(root):
     if {x["id"] for x in a["criteria"]} & {x["id"] for x in b["criteria"]}:
         raise ValidationError("Duplicate IDs across rubrics")
     school_rules = validate_hk_five(root)
-    return {"total_points": 100, "research_mode": "dynamic", "bundled_profiles_required": False, "hk_five_baseline": school_rules}
+    from score_levels import validate_score_bands
+    score_bands = validate_score_bands(root)
+    return {"score_band_version": score_bands["version"], "total_points": 100, "research_mode": "dynamic", "bundled_profiles_required": False, "hk_five_baseline": school_rules}
 
 
 def main():

@@ -38,13 +38,16 @@ An evaluation JSON includes a dynamically researched `profiles` registry plus an
         "language": {"score": 0, "evidence": [], "rationale": "Draft not provided"},
         "authenticity": {"score": 0, "evidence": [], "rationale": "No personal perspective available"}
       },
-      "risks": ["Programme fit cannot be assessed without official sources"]
+      "risks": ["Programme fit cannot be assessed without official sources"],
+      "submission_checks": {"status": "not_checked", "items": []}
     }
   ]
 }
 ```
 
-Above is a schema illustration only; do not score a nonexistent document. See `examples/evaluations.synthetic.json` for parser fixtures.
+Above is a schema illustration only; do not score a nonexistent document. `submission_checks` is optional for backwards-compatible records; when omitted, the aggregator reports `not_checked` and never assumes a pass. Allowed statuses are `clear`, `issues_to_verify`, `blocking_issues` and `not_checked`; the two issue statuses require nonempty `items` with grounded explanations. A blocker takes precedence over any favourable score.
+
+The aggregator also returns `score_level` (`min`, `max`, English/Chinese label), `score_level_provisional`, `submission_status`, and `submission_issues`. Levels come from `rubrics/score_bands.json`, with qualitative explanations in `references/score-interpretation.md`. They reflect this project's experimental framework alone. For universal-only results the `total` and `score_level` are both null; do not rescale 70 points to 100. See `examples/evaluations.synthetic.json` for parser fixtures.
 
 ### Profile status and outputs
 

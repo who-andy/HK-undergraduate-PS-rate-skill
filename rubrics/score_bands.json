@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "score_basis": "experimental_full_100_point_total_only",
+  "disclaimer": "Editorial interpretation of the project's 70+30 rubric, not university grading, historical percentile, calibrated selectivity or admission probability.",
+  "bands": [
+    {
+      "min": 0, "max": 59,
+      "label": "Needs fundamental revision", "label_zh": "需要重构",
+      "typical_evidence": "The argument, individual contribution, evidence, disciplinary understanding or clarity is substantially inadequate. Several dimensions require rebuilding.",
+      "priority": "Revisit the main academic question and reconstruct paragraphs with defensible personal evidence before polishing sentences."
+    },
+    {
+      "min": 60, "max": 69,
+      "label": "Weak", "label_zh": "偏弱",
+      "typical_evidence": "Some relevant material exists, but reasoning, reflection, concrete contribution or programme fit remains underdeveloped.",
+      "priority": "Strengthen the most consequential evidence and explain why it matters to the target programme."
+    },
+    {
+      "min": 70, "max": 79,
+      "label": "Developing", "label_zh": "中等，有明显改进空间",
+      "typical_evidence": "The purpose and some relevant experiences are understandable, yet there are material gaps in analytical depth, focus, evidence or programme coverage.",
+      "priority": "Resolve substantive missing links before stylistic editing."
+    },
+    {
+      "min": 80, "max": 84,
+      "label": "Good", "label_zh": "良好",
+      "typical_evidence": "A coherent, credible statement with relevant experiences and some reflection; there are identifiable opportunities to deepen the intellectual argument or programme match.",
+      "priority": "Prioritise one or two highest-impact substantive improvements rather than cosmetic vocabulary."
+    },
+    {
+      "min": 85, "max": 89,
+      "label": "Very strong", "label_zh": "很强",
+      "typical_evidence": "Clear academic motivation, persuasive individual contributions, substantive reflection and convincing programme-relevant evidence, with limited remaining weaknesses.",
+      "priority": "Improve precision, distinctive reasoning and the weakest evidence link."
+    },
+    {
+      "min": 90, "max": 94,
+      "label": "Excellent", "label_zh": "优秀",
+      "typical_evidence": "Consistently strong, specific and well-integrated intellectual evidence; thoughtful limitations or alternatives; major fit is convincingly supported by researched programme context; prose is clear.",
+      "priority": "Check evidence accuracy, any unresolved gaps and submission compliance; avoid changing substance solely to chase points."
+    },
+    {
+      "min": 95, "max": 100,
+      "label": "Exceptional within this rubric", "label_zh": "极强",
+      "typical_evidence": "Exceptional precision, independence and integration across nearly every dimension, with highly credible examples and nuanced, well-supported programme fit. No major substantive weakness in the judged text.",
+      "priority": "Verify critical claims and constraints; avoid unnecessary changes."
+    }
+  ]
+}

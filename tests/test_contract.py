@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from aggregate_scores import summarize
+from score_levels import score_level, validate_score_bands
 from benchmark import diagnose
 from validate_profiles import ValidationError, load_json, validate, validate_research_profile, validate_hk_five
 
@@ -15,6 +16,60 @@ class ContractTests(unittest.TestCase):
     def setUp(self):
         self.payload = load_json(ROOT / "examples" / "evaluations.synthetic.json")
         self.pairs = load_json(ROOT / "examples" / "benchmark.synthetic.json")
+
+
+    def test_score_level_boundaries(self):
+        cases = {0: "Needs fundamental revision", 59: "Needs fundamental revision",
+                 60: "Weak", 69: "Weak", 70: "Developing", 79: "Developing",
+                 80: "Good", 84: "Good", 85: "Very strong", 89: "Very strong",
+                 90: "Excellent", 94: "Excellent", 95: "Exceptional within this rubric",
+                 100: "Exceptional within this rubric"}
+        for value, expected in cases.items():
+            with self.subTest(value=value):
+                self.assertEqual(score_level(ROOT, value)["label"], expected)
+        self.assertIsNone(score_level(ROOT, None))
+
+    def test_score_level_input_validation(self):
+        for value in (-1, 101, True, 90.5, "90"):
+            with self.subTest(value=value), self.assertRaises(ValidationError):
+                score_level(ROOT, value)
+
+    def test_score_bands_nonoverlap(self):
+        self.assertEqual(len(validate_score_bands(ROOT)["bands"]), 7)
+        import json
+        from tempfile import TemporaryDirectory
+        with TemporaryDirectory() as work:
+            dest = Path(work) / "rubrics"
+            dest.mkdir()
+            bands = copy.deepcopy(validate_score_bands(ROOT))
+            bands["bands"][1]["min"] = 59
+            (dest / "score_bands.json").write_text(json.dumps(bands), encoding="utf-8")
+            with self.assertRaises(ValidationError):
+                validate_score_bands(work)
+
+    def test_score_level_and_readiness_are_independent(self):
+        p = copy.deepcopy(self.payload)
+        e = p["evaluations"][0]
+        for rubric in ("universal", "major_fit"):
+            definitions = load_json(ROOT / "rubrics" / (rubric + ".json"))
+            for c in definitions["criteria"]:
+                e["scores"][c["id"]]["score"] = c["max_points"]
+        e["submission_checks"] = {"status": "blocking_issues", "items": ["Verified mandatory length violation"]}
+        got = summarize(ROOT, p)["evaluations"][0]
+        self.assertEqual(got["total"], 100)
+        self.assertEqual(got["score_level"]["label"], "Exceptional within this rubric")
+        self.assertEqual(got["submission_status"], "blocking_issues")
+        self.assertTrue(got["score_level_provisional"]) # synthetic research
+
+    def test_unchecked_submission_is_not_clear(self):
+        result = summarize(ROOT, self.payload)
+        self.assertTrue(all(x["submission_status"] == "not_checked" for x in result["evaluations"]))
+
+    def test_blocking_status_requires_explanation(self):
+        p = copy.deepcopy(self.payload)
+        p["evaluations"][0]["submission_checks"] = {"status": "blocking_issues", "items": []}
+        with self.assertRaises(ValidationError):
+            summarize(ROOT, p)
 
     def test_dynamic_no_bundled_profile_required(self):
         got = validate(ROOT)

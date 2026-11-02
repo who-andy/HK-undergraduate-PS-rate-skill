@@ -1,8 +1,8 @@
-# PS Evaluator Skill v0.3.0
+# PS Evaluator Skill v0.4.0
 
 [简体中文](README.zh-CN.md)
 
-A portable, **research-first** Agent Skill for undergraduate personal statements. It supports Hong Kong universities and other institutions with one shared scoring workflow. **No fixed major profiles or university-specific scoring weights are hardcoded.** For the Hong Kong five universities, a dated 2027 undergraduate PS submission-rule baseline is included; major fit is still researched dynamically. The agent researches the specific programme's current official requirements and curriculum, and then assesses the essay against that evidence.
+A portable, **research-first** Agent Skill for undergraduate personal statements. It supports Hong Kong universities and other institutions with one shared scoring workflow. **No major profiles or university-specific scoring weights are hardcoded.** The five Hong Kong universities have a dated 2027 PS submission-rule baseline, while Major Fit remains researched dynamically. The agent researches the specific programme's current official requirements and curriculum, and then assesses the essay against that evidence.
 
 ## Why dynamic research?
 
@@ -10,7 +10,7 @@ Universities and routes vary in whether a statement is required, its length, whe
 
 ## Hong Kong five: 2027 application-rule baseline
 
-See [`requirements/hk-five-2027.json`](requirements/hk-five-2027.json) and [source-linked notes](references/hk-five-requirements.md). For the specified international/non-HKDSE route, HKU has a **1,000-word** shared statement, CUHK a **6,000-character** shared statement with a Medicine exception, HKUST lists a PS but no general limit was verified, CityUHK's official FAQ describes **per-programme Applicant Statements** without a verified universal A-Level length limit, and PolyU says statements are optional for **most** programmes. Always recheck the specific programme, route, intake and applicant portal.
+The included [`requirements/hk-five-2027.json`](requirements/hk-five-2027.json) and [source-linked notes](references/hk-five-requirements.md) cover HKU, CUHK, HKUST, CityUHK and PolyU, scoped to international/non-HKDSE admissions such as A-Level. Key differences: HKU 1,000 **words** shared; CUHK 6,000 **characters** shared (Medicine exception); HKUST PS required but no general limit verified; CityUHK FAQ mentions **per-programme Applicant Statement** without a verified universal limit; PolyU PS optional for most programmes. Every target, route and major must be rechecked on current official pages.
 
 ## Workflow
 
@@ -21,6 +21,22 @@ See [`requirements/hk-five-2027.json`](requirements/hk-five-2027.json) and [sour
 5. Compare drafts, assess cross-major fit or run benchmark tests when asked.
 
 If official programme context cannot be verified, report a universal-only evaluation and show unknowns instead of inventing programme criteria. Multiple programmes sharing a statement receive identical universal scores for an unchanged essay, plus separate fit analysis.
+
+## What do scores mean?
+
+The following **experimental editorial levels** describe quality within this Skill's 70+30 framework. They are not universities' marking scales, applicant percentiles or admission probabilities.
+
+| Full score | Level |
+|---|---|
+| 95–100 | Exceptional within this rubric |
+| 90–94 | Excellent |
+| 85–89 | Very strong |
+| 80–84 | Good |
+| 70–79 | Developing |
+| 60–69 | Weak |
+| 0–59 | Needs fundamental revision |
+
+For evidence anchors and how to interpret **90 versus 80**, see [score interpretation](references/score-interpretation.md). A programme that cannot be researched yields only /70, without a full score or level. Partial research yields a provisional level. Confirmed length or integrity issues remain submission blockers whatever the numerical grade. Language quality contributes 5 points of the universal 70.
 
 ## Installation
 

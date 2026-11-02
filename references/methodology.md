@@ -10,6 +10,10 @@ Use each criterion's 0–4 anchor scale in the two JSON rubrics as a proportiona
 
 Universal writing scores should be invariant when a given essay is assessed against multiple majors. Major-fit scores should change only for defensible programme-specific reasons supported by the dynamically researched facts. The 70+30 scheme is a comparative experiment and should not silently be customized based on a guessed school preference.
 
+## Score interpretation
+
+Use `rubrics/score_bands.json` plus `references/score-interpretation.md` to interpret the **complete** 100-point experimental score. Reporting thresholds are descriptive conventions, not distributions, percentiles, admission odds, or official grading. A /70 universal-only result cannot be extrapolated into an overall band. A high level never overrides confirmed submission blockers. For scores close to boundaries, describe uncertainty and cross-judge disagreement.
+
 ## Source hierarchy
 
 1. Official current admissions instructions for the exact route, year and degree.

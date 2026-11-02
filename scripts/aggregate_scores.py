@@ -7,6 +7,7 @@ from pathlib import Path
 from statistics import mean
 
 from validate_profiles import ValidationError, load_json, rubric_from_file, validate, validate_research_profile
+from score_levels import score_level
 
 
 def summarize(root, payload):
@@ -65,14 +66,31 @@ def summarize(root, payload):
             raise ValidationError(f"Evaluation {i}: invalid risks")
         if "major_profile_checked" in entry and entry["major_profile_checked"] is not (research["research_status"] == "verified"):
             raise ValidationError(f"Evaluation {i}: major_profile_checked contradicts research_status")
+        submission_checks = entry.get("submission_checks", {"status": "not_checked", "items": []})
+        if not isinstance(submission_checks, dict) or set(submission_checks) != {"status", "items"}:
+            raise ValidationError(f"Evaluation {i}: invalid submission_checks")
+        submission_status = submission_checks["status"]
+        if submission_status not in {"clear", "issues_to_verify", "blocking_issues", "not_checked"}:
+            raise ValidationError(f"Evaluation {i}: invalid submission status")
+        if not isinstance(submission_checks["items"], list) or any(
+            not isinstance(item, str) or not item.strip() for item in submission_checks["items"]
+        ):
+            raise ValidationError(f"Evaluation {i}: invalid submission check items")
+        if submission_status in {"issues_to_verify", "blocking_issues"} and not submission_checks["items"]:
+            raise ValidationError(f"Evaluation {i}: must document submission concerns")
         fit_available = research["research_status"] != "unavailable"
+        full_total = sum(subtotals.values()) if fit_available else None
         processed.append({
             "document_id": entry["document_id"], "target_major": major,
             "judge_id": entry["judge_id"], "judge_version": entry["judge_version"],
             "research_status": research["research_status"],
             "universal": subtotals["universal"],
             "major_fit": subtotals["major_fit"] if fit_available else None,
-            "total": sum(subtotals.values()) if fit_available else None,
+            "total": full_total,
+            "score_level": score_level(root, full_total),
+            "score_level_provisional": research["research_status"] in ("partial", "synthetic") if fit_available else None,
+            "submission_status": submission_status,
+            "submission_issues": submission_checks["items"],
             "risks": entry["risks"], "major_profile_checked": research["research_status"] == "verified"
         })
     groups = defaultdict(list)
@@ -91,6 +109,8 @@ def summarize(root, payload):
     return {"evaluations": processed, "groups": summaries, "notes": [
         "70/30 are experimental editorial weights, not official admissions weights.",
         "Major research is dynamically provided; this script does not browse or verify citations.",
+        "Score levels describe this project rubric only; no admissions percentile or probability.",
+        "Submission readiness is independent of the numeric score; blocked issues take priority.",
         "No LLM was called by this script. Model agreement cannot validate admissions outcomes."]}
 
 
